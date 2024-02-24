@@ -1,0 +1,40 @@
+.content {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 10px;
+  width: 70%;
+}
+
+.image-holder {
+  flex: 25%;
+  max-width: 33%;
+  padding: 8px;
+}
+
+.main-content{
+    display: flex;
+    justify-content: center;
+}
+
+.meme-top-caption {
+    display: flex;
+    margin-bottom: 10px;
+}
+
+.toptext {
+    border: none;
+    font-size: x-large;
+    width: 100%;
+    outline: none;
+    resize: none;
+    font-family: sans-serif;
+}
+
+.downloadButton {
+    float:right;
+    padding: 10px;
+}
+
+.box {
+    padding: 30px;
+}
