@@ -1,7 +1,6 @@
 import { React, useState, useRef, useEffect } from "react";
 import Box from "@mui/material/Box";
 import Button from "@mui/material/Button";
-import Typography from "@mui/material/Typography";
 import Modal from "@mui/material/Modal";
 import Backdrop from "@mui/material/Backdrop";
 import Fade from "@mui/material/Fade";
@@ -9,6 +8,7 @@ import "./HomePage.css";
 import downloadjs from "downloadjs";
 import html2canvas from "html2canvas";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
+import axios from "axios";
 
 export const HomePage = () => {
   const [open, setOpen] = useState(false);
@@ -18,6 +18,7 @@ export const HomePage = () => {
     setCurrentImage(img);
   };
   const handleClose = () => setOpen(false);
+  const [query, setQuery] = useState("");
 
   const photos = [
     { src: "/images/akki.jpeg" },
@@ -28,7 +29,14 @@ export const HomePage = () => {
     { src: "/images/party.jpg" },
     { src: "/images/rajurao.jpg" },
     { src: "/images/clearbol.jpeg" },
-    { src: "/images/srk.jpeg" },
+    { src: "/images/Aage-ka-drama-sambhal-le.jpg" },
+    { src: "/images/alia-bhatt-hitting-her-husband-from-behind.jpg" },
+    { src: "/images/jaane-se-pehle-mujhe-milke-jaana.jpg" },
+    { src: "/images/jesse.jpg" },
+    { src: "/images/maut-aajaye-par-na-aaye.jpg" },
+    { src: "/images/nawaz.jpg" },
+    { src: "/images/ranveer.jpg" },
+    { src: "/images/seh_lenge_thoda.webp" },
   ];
 
   const style = {
@@ -51,8 +59,73 @@ export const HomePage = () => {
     downloadjs(dataURL, "download.png", "image/png");
   };
 
+  const [text, setText] = useState("");
+
+  const handleTextChange = (event) => {
+    setText(event.target.value);
+    adjustHeight();
+  };
+
+  const adjustHeight = () => {
+    const textarea = document.getElementById("meme-top-caption");
+    if (textarea) {
+      const width = textarea.offsetWidth;
+      const currentHeight = textarea.clientHeight;
+      // textarea.style.height =`${currentHeight + 40}px`;
+    }
+  };
+
+  // const getImages = async (query) => {
+  //   const apiKey = "AIzaSyAcFIiBfRChMJU8XEM8vTcmrcMH8CCOMxo";
+  //   const searchEngineId = "22192673c568b4216";
+  //   const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${apiKey}&cx=${searchEngineId}`;
+  //   const result = await axios.get(url);
+  //   const imageUrl = result.data.items[1].pagemap.cse_image[0].src;
+  //   // imageContainer.innerHTML = `<img src="${imageUrl}" alt="${query} meme">`;S
+  //   return imageUrl;
+  // };
+
+  // const handleQuery = (event) => {
+  //   setQuery(event.target.value);
+  // };
+
+  const handleFontSize = (value) => {
+    const textToChange = document.getElementById("toptext");
+    if (textToChange) {
+      textToChange.style.fontSize=value;
+    }
+  };
+
+  const handleFontChange = (value) => {
+    const textToChange = document.getElementById("toptext");
+    if (textToChange) {
+      textToChange.style.fontFamily=value;
+    }
+  };
+
   return (
     <div className="main-content">
+      <form>
+        {/* <input
+          type="text"
+          id="query"
+          value={query}
+          onChange={handleQuery}
+        ></input> */}
+        {/* <Button
+          onClick={() => {
+            const imageUrl = getImages(query);
+            <img 
+              scr={imageUrl}
+              alt={""}
+            />
+          }}
+          variant="contained"
+          className="button"
+        >
+          Search
+        </Button> */}
+      </form>
       <div className="content">
         {photos.map((image, index) => (
           <div className="image-holder" key={image.src}>
@@ -87,11 +160,14 @@ export const HomePage = () => {
         <Fade in={open}>
           <Box sx={style}>
             <div className="box">
-              <form className="meme-top-caption">
+              <form id="meme-top-caption" className="meme-top-caption">
                 <textarea
+                  value={text}
+                  onChange={handleTextChange}
                   className="toptext"
                   type="text"
                   name="toptext"
+                  id="toptext"
                   placeholder="Enter your text"
                 />
               </form>
@@ -105,14 +181,40 @@ export const HomePage = () => {
                 alt={""}
               />
             </div>
-            <Button
-              className="downloadButton"
-              variant="contained"
-              startIcon={<ArrowDownwardIcon />}
-              onClick={handleDownload}
-            >
-              Download
-            </Button>
+            <div className="buttons">
+              <Button
+                className="downloadButton"
+                variant="contained"
+                startIcon={<ArrowDownwardIcon />}
+                onClick={handleDownload}
+              >
+                Download
+              </Button>
+              <div>
+                <div className="fontButton">
+                  <Button onClick={()=>handleFontSize("large")} variant="contained">
+                    L
+                  </Button>
+                  <Button
+                    onClick={()=>handleFontSize("x-large")}
+                    variant="contained"
+                  >
+                    XL
+                  </Button>
+                  <Button
+                    onClick={()=>handleFontSize("xx-large")}
+                    variant="contained"
+                  >
+                    XXL
+                  </Button>
+                </div>
+                <div className="fontButton">
+                  <Button onClick={()=>handleFontChange("Roboto")} variant="contained">I</Button>
+                  <Button onClick={()=>handleFontChange("Verdana")} variant="contained">I</Button>
+                  <Button onClick={()=>handleFontChange("Comic Sans MS")} variant="contained">I</Button>
+                </div>
+              </div>
+            </div>
           </Box>
         </Fade>
       </Modal>

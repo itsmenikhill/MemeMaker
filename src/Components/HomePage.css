@@ -9,6 +9,7 @@
   flex: 25%;
   max-width: 33%;
   padding: 8px;
+  height: fit-content;
 }
 
 .main-content{
@@ -18,7 +19,9 @@
 
 .meme-top-caption {
     display: flex;
-    margin-bottom: 10px;
+    margin-bottom: 2px;
+    height: 40px;
+    width: auto;
 }
 
 .toptext {
@@ -27,14 +30,35 @@
     width: 100%;
     outline: none;
     resize: none;
-    font-family: sans-serif;
+    font-family: "Roboto";
 }
 
-.downloadButton {
-    float:right;
-    padding: 10px;
+.buttons .downloadButton {
+    float: right;
+    margin-top: 20px;    
+    width: 200px;
+    /* background-color: dimgray; */
+    height: 50px;
+}
+
+.buttons .downloadButton:hover{
+    /* background-color: black; */
+    color: white;
+    border: none;
 }
 
 .box {
-    padding: 30px;
+    padding: 20px;
+    /* background-color: aquamarine; */
 }
+
+.buttons {
+    padding: 20px;
+    justify-content: space-between;
+    /* background-color: blue; */
+}
+
+.fontButton Button {
+    margin: 5px;
+}
+
