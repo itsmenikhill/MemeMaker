@@ -76,8 +76,8 @@ export const HomePage = () => {
   };
 
   // const getImages = async (query) => {
-  //   const apiKey = "AIzaSyAcFIiBfRChMJU8XEM8vTcmrcMH8CCOMxo";
-  //   const searchEngineId = "22192673c568b4216";
+  //   const apiKey = "";
+  //   const searchEngineId = "";
   //   const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${apiKey}&cx=${searchEngineId}`;
   //   const result = await axios.get(url);
   //   const imageUrl = result.data.items[1].pagemap.cse_image[0].src;
