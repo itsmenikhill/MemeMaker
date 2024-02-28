@@ -12,53 +12,64 @@
   height: fit-content;
 }
 
-.main-content{
-    display: flex;
-    justify-content: center;
+.main-content {
+  display: flex;
+  justify-content: center;
 }
 
 .meme-top-caption {
-    display: flex;
-    margin-bottom: 2px;
-    height: 40px;
-    width: auto;
+  display: flex;
+  margin-bottom: 2px;
+  height: 40px;
+  width: auto;
 }
 
 .toptext {
-    border: none;
-    font-size: x-large;
-    width: 100%;
-    outline: none;
-    resize: none;
-    font-family: "Roboto";
+  border: none;
+  font-size: x-large;
+  width: 100%;
+  outline: none;
+  resize: none;
+  font-family: "Roboto";
+  background-color: aquamarine;
 }
 
 .buttons .downloadButton {
-    float: right;
-    margin-top: 20px;    
-    width: 200px;
-    /* background-color: dimgray; */
-    height: 50px;
+  float: right;
+  margin-top: 20px;
+  width: 200px;
+  /* background-color: dimgray; */
+  height: 50px;
 }
 
-.buttons .downloadButton:hover{
-    /* background-color: black; */
-    color: white;
-    border: none;
+.buttons .downloadButton:hover {
+  /* background-color: black; */
+  color: white;
+  border: none;
 }
 
 .box {
-    padding: 20px;
-    /* background-color: aquamarine; */
+  padding: 20px;
+  /* background-color: aquamarine; */
 }
 
 .buttons {
-    padding: 20px;
-    justify-content: space-between;
-    /* background-color: blue; */
+  padding: 20px;
+  justify-content: space-between;
+  /* background-color: blue; */
 }
 
 .fontButton Button {
-    margin: 5px;
+  margin: 5px;
 }
 
+.offscreen-div {
+  position: absolute;
+  top: -9999px;
+  left: -9999px;
+  visibility: hidden;
+  white-space: pre-wrap;
+  font-family: inherit;
+  font-size: inherit;
+  overflow: hidden;
+}

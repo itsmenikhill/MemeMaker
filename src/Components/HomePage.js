@@ -60,6 +60,9 @@ export const HomePage = () => {
   };
 
   const [text, setText] = useState("");
+  const [currentWidth, setCurrentWidth] = useState(0);
+  let heightAdjusted = false;
+  var [heightAdjustedCount, setHeightAdjustedCount] = useState(0);
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -67,65 +70,55 @@ export const HomePage = () => {
   };
 
   const adjustHeight = () => {
-    const textarea = document.getElementById("meme-top-caption");
-    if (textarea) {
-      const width = textarea.offsetWidth;
-      const currentHeight = textarea.clientHeight;
-      // textarea.style.height =`${currentHeight + 40}px`;
+    const formArea = document.getElementById("meme-top-caption");
+    const caption = document.getElementById("toptext");
+    const offscreendiv = document.getElementById("offscreen-div");
+    if (formArea && offscreendiv) {
+      offscreendiv.textContent = caption.value;
+      offscreendiv.style.fontFamily =
+        window.getComputedStyle(caption).fontFamily;
+      offscreendiv.style.fontSize = window.getComputedStyle(caption).fontSize;
+      const contentWidth = offscreendiv.clientWidth;
+      const width = formArea.offsetWidth;
+      const currentHeight = formArea.clientHeight;
+      if (heightAdjustedCount === 1) {
+        setCurrentWidth(`${contentWidth - width}`);
+        // console.log(currentWidth);
+        // console.log(heightAdjustedCount);
+        if (currentWidth > width) {
+          formArea.style.height = `${currentHeight + 40}px`;
+          setHeightAdjustedCount(heightAdjustedCount+1);
+          heightAdjusted = true;
+        }
+      } else if (!heightAdjusted) {
+        setCurrentWidth(contentWidth - (width*heightAdjustedCount-2));
+        console.log(currentWidth);
+        console.log(contentWidth);
+        console.log(width*heightAdjustedCount-1);
+        if (currentWidth > width) {
+          setHeightAdjustedCount(heightAdjustedCount+1);
+          heightAdjusted = true;
+        }
+      }
     }
   };
-
-  // const getImages = async (query) => {
-  //   const apiKey = "";
-  //   const searchEngineId = "";
-  //   const url = `https://www.googleapis.com/customsearch/v1?q=${query}&key=${apiKey}&cx=${searchEngineId}`;
-  //   const result = await axios.get(url);
-  //   const imageUrl = result.data.items[1].pagemap.cse_image[0].src;
-  //   // imageContainer.innerHTML = `<img src="${imageUrl}" alt="${query} meme">`;S
-  //   return imageUrl;
-  // };
-
-  // const handleQuery = (event) => {
-  //   setQuery(event.target.value);
-  // };
 
   const handleFontSize = (value) => {
     const textToChange = document.getElementById("toptext");
     if (textToChange) {
-      textToChange.style.fontSize=value;
+      textToChange.style.fontSize = value;
     }
   };
 
   const handleFontChange = (value) => {
     const textToChange = document.getElementById("toptext");
     if (textToChange) {
-      textToChange.style.fontFamily=value;
+      textToChange.style.fontFamily = value;
     }
   };
 
   return (
     <div className="main-content">
-      <form>
-        {/* <input
-          type="text"
-          id="query"
-          value={query}
-          onChange={handleQuery}
-        ></input> */}
-        {/* <Button
-          onClick={() => {
-            const imageUrl = getImages(query);
-            <img 
-              scr={imageUrl}
-              alt={""}
-            />
-          }}
-          variant="contained"
-          className="button"
-        >
-          Search
-        </Button> */}
-      </form>
       <div className="content">
         {photos.map((image, index) => (
           <div className="image-holder" key={image.src}>
@@ -170,6 +163,7 @@ export const HomePage = () => {
                   id="toptext"
                   placeholder="Enter your text"
                 />
+                <div className="offscreen-div" id="offscreen-div"></div>
               </form>
               <img
                 style={{
@@ -192,26 +186,44 @@ export const HomePage = () => {
               </Button>
               <div>
                 <div className="fontButton">
-                  <Button onClick={()=>handleFontSize("large")} variant="contained">
+                  <Button
+                    onClick={() => handleFontSize("large")}
+                    variant="contained"
+                  >
                     L
                   </Button>
                   <Button
-                    onClick={()=>handleFontSize("x-large")}
+                    onClick={() => handleFontSize("x-large")}
                     variant="contained"
                   >
                     XL
                   </Button>
                   <Button
-                    onClick={()=>handleFontSize("xx-large")}
+                    onClick={() => handleFontSize("xx-large")}
                     variant="contained"
                   >
                     XXL
                   </Button>
                 </div>
                 <div className="fontButton">
-                  <Button onClick={()=>handleFontChange("Roboto")} variant="contained">I</Button>
-                  <Button onClick={()=>handleFontChange("Verdana")} variant="contained">I</Button>
-                  <Button onClick={()=>handleFontChange("Comic Sans MS")} variant="contained">I</Button>
+                  <Button
+                    onClick={() => handleFontChange("Roboto")}
+                    variant="contained"
+                  >
+                    I
+                  </Button>
+                  <Button
+                    onClick={() => handleFontChange("Verdana")}
+                    variant="contained"
+                  >
+                    I
+                  </Button>
+                  <Button
+                    onClick={() => handleFontChange("Comic Sans MS")}
+                    variant="contained"
+                  >
+                    I
+                  </Button>
                 </div>
               </div>
             </div>
