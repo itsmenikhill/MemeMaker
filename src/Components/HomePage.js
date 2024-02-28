@@ -9,6 +9,7 @@ import downloadjs from "downloadjs";
 import html2canvas from "html2canvas";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import axios from "axios";
+import domtoimage from "dom-to-image";
 
 export const HomePage = () => {
   const [open, setOpen] = useState(false);
@@ -54,9 +55,25 @@ export const HomePage = () => {
   const handleDownload = async () => {
     const finalMeme = document.querySelector(".box");
     if (!finalMeme) return;
-    const canvas = await html2canvas(finalMeme);
-    const dataURL = canvas.toDataURL("image/png");
-    downloadjs(dataURL, "download.png", "image/png");
+
+    const textarea = document.getElementById("toptext");
+    const topText = textarea.value;
+
+    // Use dom-to-image to capture the content, including text
+    domtoimage
+      .toPng(finalMeme)
+      .then((dataUrl) => {
+        // Create a temporary link and trigger a download
+        const downloadLink = document.createElement("a");
+        downloadLink.href = dataUrl;
+        downloadLink.download = "download.png";
+        document.body.appendChild(downloadLink);
+        downloadLink.click();
+        document.body.removeChild(downloadLink);
+      })
+      .catch((error) => {
+        console.error("Error generating image:", error);
+      });
   };
 
   const [text, setText] = useState("");
@@ -87,16 +104,16 @@ export const HomePage = () => {
         // console.log(heightAdjustedCount);
         if (currentWidth > width) {
           formArea.style.height = `${currentHeight + 40}px`;
-          setHeightAdjustedCount(heightAdjustedCount+1);
+          setHeightAdjustedCount(heightAdjustedCount + 1);
           heightAdjusted = true;
         }
       } else if (!heightAdjusted) {
-        setCurrentWidth(contentWidth - (width*heightAdjustedCount-2));
+        setCurrentWidth(contentWidth - (width * heightAdjustedCount - 2));
         console.log(currentWidth);
         console.log(contentWidth);
-        console.log(width*heightAdjustedCount-1);
+        console.log(width * heightAdjustedCount - 1);
         if (currentWidth > width) {
-          setHeightAdjustedCount(heightAdjustedCount+1);
+          setHeightAdjustedCount(heightAdjustedCount + 1);
           heightAdjusted = true;
         }
       }
@@ -155,6 +172,9 @@ export const HomePage = () => {
             <div className="box">
               <form id="meme-top-caption" className="meme-top-caption">
                 <textarea
+                  style={{
+                    "overflow":"hidden"
+                  }}
                   value={text}
                   onChange={handleTextChange}
                   className="toptext"
@@ -168,7 +188,7 @@ export const HomePage = () => {
               <img
                 style={{
                   width: "100%",
-                  cursor: "pointer",
+                  // cursor: "pointer",
                   height: "100%",
                 }}
                 src={currentImage}
@@ -210,19 +230,19 @@ export const HomePage = () => {
                     onClick={() => handleFontChange("Roboto")}
                     variant="contained"
                   >
-                    I
+                    1
                   </Button>
                   <Button
                     onClick={() => handleFontChange("Verdana")}
                     variant="contained"
                   >
-                    I
+                    2 
                   </Button>
                   <Button
                     onClick={() => handleFontChange("Comic Sans MS")}
                     variant="contained"
                   >
-                    I
+                    3
                   </Button>
                 </div>
               </div>

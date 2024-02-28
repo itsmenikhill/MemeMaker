@@ -20,18 +20,18 @@
 .meme-top-caption {
   display: flex;
   margin-bottom: 2px;
-  height: 40px;
+  height: 80px;
   width: auto;
 }
 
 .toptext {
   border: none;
-  font-size: x-large;
+  font-size: large;
   width: 100%;
   outline: none;
   resize: none;
   font-family: "Roboto";
-  background-color: aquamarine;
+  /* background-color: blue; */
 }
 
 .buttons .downloadButton {
@@ -49,6 +49,7 @@
 }
 
 .box {
+  display: flexbox;
   padding: 20px;
   /* background-color: aquamarine; */
 }
