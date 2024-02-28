@@ -10,6 +10,7 @@ import html2canvas from "html2canvas";
 import ArrowDownwardIcon from "@mui/icons-material/ArrowDownward";
 import axios from "axios";
 import domtoimage from "dom-to-image";
+import { create } from "@mui/material/styles/createTransitions";
 
 export const HomePage = () => {
   const [open, setOpen] = useState(false);
@@ -34,7 +35,6 @@ export const HomePage = () => {
     { src: "/images/alia-bhatt-hitting-her-husband-from-behind.jpg" },
     { src: "/images/jaane-se-pehle-mujhe-milke-jaana.jpg" },
     { src: "/images/jesse.jpg" },
-    { src: "/images/maut-aajaye-par-na-aaye.jpg" },
     { src: "/images/nawaz.jpg" },
     { src: "/images/ranveer.jpg" },
     { src: "/images/seh_lenge_thoda.webp" },
@@ -45,7 +45,8 @@ export const HomePage = () => {
     top: "50%",
     left: "50%",
     transform: "translate(-50%, -50%)",
-    width: 700,
+    width: 600,
+    heigth: 450,
     bgcolor: "background.paper",
     border: "2px solid #000",
     boxShadow: 24,
@@ -80,6 +81,7 @@ export const HomePage = () => {
   const [currentWidth, setCurrentWidth] = useState(0);
   let heightAdjusted = false;
   var [heightAdjustedCount, setHeightAdjustedCount] = useState(0);
+  var [imageSelected, setImageSelected] = useState("");
 
   const handleTextChange = (event) => {
     setText(event.target.value);
@@ -134,9 +136,35 @@ export const HomePage = () => {
     }
   };
 
+  const createMeme = async () => {
+    const imageInput = document.getElementById("imageInput");
+    if (!imageInput.files || imageInput.length === 0) {
+      alert("Please select a file to edit.");
+      return;
+    }
+    const imageFile = imageInput.files[0];
+    const reader = new FileReader();
+    const loadImage = () => {
+      return new Promise((resolve) => {
+        reader.onloadend = (e) => {
+          const imageUrl = e.target.result;
+          setImageSelected(imageUrl);
+          resolve(imageUrl)
+        }
+      })
+    }
+    loadImage().then((imageSelected)=>{
+      handleOpen(imageSelected);
+    })
+
+    reader.readAsDataURL(imageFile);
+  };
+
   return (
     <div className="main-content">
       <div className="content">
+        <input type="file" id="imageInput" accept="image/*" />
+        <Button onClick={createMeme}>Create</Button>
         {photos.map((image, index) => (
           <div className="image-holder" key={image.src}>
             <img
@@ -188,9 +216,10 @@ export const HomePage = () => {
               <img
                 className="memeImage"
                 style={{
-                  width: "650px",
-                  height: "400px",
-                  objectFit:"cover"
+                  maxHeight:"100%",
+                  maxWidth:"100%",
+                  height:"auto",
+                  width:"auto"
                 }}
                 src={currentImage}
                 alt={""}
