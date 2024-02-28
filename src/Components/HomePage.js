@@ -168,12 +168,12 @@ export const HomePage = () => {
         }}
       >
         <Fade in={open}>
-          <Box sx={style}>
+          <Box sx={style} className="outerBox">
             <div className="box">
               <form id="meme-top-caption" className="meme-top-caption">
                 <textarea
                   style={{
-                    "overflow":"hidden"
+                    overflow: "hidden",
                   }}
                   value={text}
                   onChange={handleTextChange}
@@ -186,10 +186,11 @@ export const HomePage = () => {
                 <div className="offscreen-div" id="offscreen-div"></div>
               </form>
               <img
+                className="memeImage"
                 style={{
-                  width: "100%",
-                  // cursor: "pointer",
-                  height: "100%",
+                  width: "650px",
+                  height: "400px",
+                  objectFit:"cover"
                 }}
                 src={currentImage}
                 alt={""}
@@ -210,19 +211,19 @@ export const HomePage = () => {
                     onClick={() => handleFontSize("large")}
                     variant="contained"
                   >
-                    L
+                    S
                   </Button>
                   <Button
                     onClick={() => handleFontSize("x-large")}
                     variant="contained"
                   >
-                    XL
+                    M
                   </Button>
                   <Button
                     onClick={() => handleFontSize("xx-large")}
                     variant="contained"
                   >
-                    XXL
+                    L
                   </Button>
                 </div>
                 <div className="fontButton">
@@ -236,7 +237,7 @@ export const HomePage = () => {
                     onClick={() => handleFontChange("Verdana")}
                     variant="contained"
                   >
-                    2 
+                    2
                   </Button>
                   <Button
                     onClick={() => handleFontChange("Comic Sans MS")}

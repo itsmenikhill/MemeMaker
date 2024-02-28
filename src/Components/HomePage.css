@@ -51,13 +51,12 @@
 .box {
   display: flexbox;
   padding: 20px;
-  /* background-color: aquamarine; */
+  background-color: white;
 }
 
 .buttons {
   padding: 20px;
   justify-content: space-between;
-  /* background-color: blue; */
 }
 
 .fontButton Button {
@@ -73,4 +72,16 @@
   font-family: inherit;
   font-size: inherit;
   overflow: hidden;
+}
+
+.modal {
+  overflow: scroll;
+  /* max-height: 90%; */
+  /* background-color: blueviolet; */
+}
+
+.memeImage {
+  width: 500px;
+  height: 400px;
+  object-fit: cover;
 }
