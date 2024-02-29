@@ -102,8 +102,6 @@ export const HomePage = () => {
       const currentHeight = formArea.clientHeight;
       if (heightAdjustedCount === 1) {
         setCurrentWidth(`${contentWidth - width}`);
-        // console.log(currentWidth);
-        // console.log(heightAdjustedCount);
         if (currentWidth > width) {
           formArea.style.height = `${currentHeight + 40}px`;
           setHeightAdjustedCount(heightAdjustedCount + 1);
@@ -111,8 +109,6 @@ export const HomePage = () => {
         }
       } else if (!heightAdjusted) {
         setCurrentWidth(contentWidth - (width * heightAdjustedCount - 2));
-        console.log(currentWidth);
-        console.log(contentWidth);
         console.log(width * heightAdjustedCount - 1);
         if (currentWidth > width) {
           setHeightAdjustedCount(heightAdjustedCount + 1);
@@ -149,13 +145,13 @@ export const HomePage = () => {
         reader.onloadend = (e) => {
           const imageUrl = e.target.result;
           setImageSelected(imageUrl);
-          resolve(imageUrl)
-        }
-      })
-    }
-    loadImage().then((imageSelected)=>{
+          resolve(imageUrl);
+        };
+      });
+    };
+    loadImage().then((imageSelected) => {
       handleOpen(imageSelected);
-    })
+    });
 
     reader.readAsDataURL(imageFile);
   };
@@ -216,10 +212,10 @@ export const HomePage = () => {
               <img
                 className="memeImage"
                 style={{
-                  maxHeight:"100%",
-                  maxWidth:"100%",
-                  height:"auto",
-                  width:"auto"
+                  maxHeight: "100%",
+                  maxWidth: "100%",
+                  height: "auto",
+                  width: "auto",
                 }}
                 src={currentImage}
                 alt={""}
